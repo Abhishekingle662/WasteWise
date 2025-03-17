@@ -204,6 +204,13 @@ input:focus, select:focus, textarea:focus {
   .section-title {
     font-size: 1.5rem;
   }
+  
+  /* Add responsive styles for header navigation if needed */
+  header button {
+    /* Add your button responsive styles here */
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
 }
 
 /* Animation classes */
