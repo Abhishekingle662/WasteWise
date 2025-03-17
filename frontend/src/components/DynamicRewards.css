@@ -1,0 +1,142 @@
+.dynamic-reward {
+  background: linear-gradient(145deg, #ffffff, #f0f7f0);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 20px 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.dynamic-reward:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dynamic-reward .reward-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dynamic-reward .ai-powered-tag {
+  background-color: #6200ea;
+  color: white;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.dynamic-reward .reward-content {
+  padding: 25px;
+  text-align: center;
+}
+
+.dynamic-reward .reward-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.dynamic-reward h3 {
+  margin: 10px 0;
+  color: #2e7d32;
+  font-size: 22px;
+}
+
+.dynamic-reward .reward-description {
+  color: #555;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.dynamic-reward .reward-highlight {
+  font-size: 28px;
+  font-weight: 700;
+  color: #4caf50;
+  margin: 15px 0;
+}
+
+.dynamic-reward .reward-badge-image {
+  width: 100px;
+  height: 100px;
+  margin: 15px auto;
+  background: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dynamic-reward .reward-badge-image img {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.dynamic-reward .reward-expiry {
+  font-size: 14px;
+  color: #757575;
+  margin-top: 15px;
+}
+
+.dynamic-reward .partner-stores {
+  font-size: 14px;
+  color: #555;
+  font-style: italic;
+}
+
+.dynamic-reward .reward-footer {
+  padding: 20px;
+  border-top: 1px solid #eaeaea;
+}
+
+.dynamic-reward .claim-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.dynamic-reward .claim-button:hover {
+  background-color: #388e3c;
+}
+
+.dynamic-reward.loading {
+  padding: 40px;
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+.dynamic-reward.error {
+  padding: 20px;
+  color: #d32f2f;
+  text-align: center;
+  border: 1px solid #ffcdd2;
+  background-color: #ffebee;
+}
+
+.dynamic-reward.claimed {
+  text-align: center;
+  padding: 30px;
+}
+
+.dynamic-reward.claimed .reward-badge {
+  width: 60px;
+  height: 60px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: white;
+  margin: 0 auto 20px;
+}

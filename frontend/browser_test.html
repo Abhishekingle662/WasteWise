@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WasteWise RL API Testing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #4caf50;
+        }
+        .endpoint {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .response {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            white-space: pre-wrap;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input, select {
+            padding: 6px;
+            margin: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WasteWise RL API Testing</h1>
+    <p>Use this page to test the RL API endpoints directly from your browser.</p>
+    
+    <div class="endpoint">
+        <h2>1. Check Server Status</h2>
+        <button onclick="checkServer()">Check Server</button>
+        <div id="server-response" class="response"></div>
+    </div>
+    
+    <div class="endpoint">
+        <h2>2. Test Recommendation API</h2>
+        <div>
+            <label>User ID:</label>
+            <input type="text" id="rec-user-id" value="test_user_123">
+        </div>
+        <div>
+            <label>Recycling Count:</label>
+            <input type="number" id="rec-recycling" value="10">
+        </div>
+        <div>
+            <label>Challenge Completions:</label>
+            <input type="number" id="rec-challenges" value="5">
+        </div>
+        <div>
+            <label>Login Frequency:</label>
+            <input type="number" id="rec-logins" value="15">
+        </div>
+        <div>
+            <label>Method:</label>
+            <select id="rec-method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+            </select>
+        </div>
+        <button onclick="testRecommendation()">Test Recommendation</button>
+        <div id="rec-response" class="response"></div>
+    </div>
+    
+    <div class="endpoint">
+        <h2>3. Test Action Tracking API</h2>
+        <div>
+            <label>User ID:</label>
+            <input type="text" id="track-user-id" value="test_user_123">
+        </div>
+        <div>
+            <label>Action Type:</label>
+            <input type="text" id="track-action" value="recycling">
+        </div>
+        <div>
+            <label>Method:</label>
+            <select id="track-method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+            </select>
+        </div>
+        <button onclick="testTracking()">Test Tracking</button>
+        <div id="track-response" class="response"></div>
+    </div>
+    
+    <div class="endpoint">
+        <h2>4. Test Outcome API</h2>
+        <div>
+            <label>User ID:</label>
+            <input type="text" id="outcome-user-id" value="test_user_123">
+        </div>
+        <div>
+            <label>Reward Type:</label>
+            <select id="outcome-reward">
+                <option value="points">Points</option>
+                <option value="badges">Badges</option>
+                <option value="discounts">Discounts</option>
+                <option value="social_recognition">Social Recognition</option>
+            </select>
+        </div>
+        <div>
+            <label>Actions Before:</label>
+            <input type="number" id="outcome-before" value="5">
+        </div>
+        <div>
+            <label>Actions After:</label>
+            <input type="number" id="outcome-after" value="10">
+        </div>
+        <div>
+            <label>Method:</label>
+            <select id="outcome-method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+            </select>
+        </div>
+        <button onclick="testOutcome()">Test Outcome</button>
+        <div id="outcome-response" class="response"></div>
+    </div>
+    
+    <script>
+        const BASE_URL = "http://localhost:5000";
+        
+        async function checkServer() {
+            const responseElem = document.getElementById('server-response');
+            responseElem.textContent = "Checking server...";
+            
+            try {
+                const response = await fetch(BASE_URL);
+                const text = await response.text();
+                responseElem.textContent = `Server status: ${response.status}\nResponse: ${text}`;
+            } catch (error) {
+                responseElem.textContent = `Error: ${error.message}\n\nMake sure the server is running at ${BASE_URL}`;
+            }
+        }
+        
+        async function testRecommendation() {
+            const userId = document.getElementById('rec-user-id').value;
+            const recycling = document.getElementById('rec-recycling').value;
+            const challenges = document.getElementById('rec-challenges').value;
+            const logins = document.getElementById('rec-logins').value;
+            const method = document.getElementById('rec-method').value;
+            const responseElem = document.getElementById('rec-response');
+            
+            responseElem.textContent = "Sending request...";
+            
+            try {
+                let response;
+                if (method === 'GET') {
+                    const url = `${BASE_URL}/api/rewards/recommend/${userId}?recycling_count=${recycling}&challenge_completions=${challenges}&login_frequency=${logins}`;
+                    response = await fetch(url);
+                } else {
+                    const url = `${BASE_URL}/api/rewards/recommend/${userId}`;
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            recycling_count: parseInt(recycling),
+                            challenge_completions: parseInt(challenges),
+                            login_frequency: parseInt(logins)
+                        })
+                    });
+                }
+                
+                const data = await response.json();
+                responseElem.textContent = `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                responseElem.textContent = `Error: ${error.message}`;
+            }
+        }
+        
+        async function testTracking() {
+            const userId = document.getElementById('track-user-id').value;
+            const actionType = document.getElementById('track-action').value;
+            const method = document.getElementById('track-method').value;
+            const responseElem = document.getElementById('track-response');
+            
+            responseElem.textContent = "Sending request...";
+            
+            try {
+                let response;
+                if (method === 'GET') {
+                    const url = `${BASE_URL}/api/rewards/track?userId=${userId}&actionType=${actionType}`;
+                    response = await fetch(url);
+                } else {
+                    const url = `${BASE_URL}/api/rewards/track`;
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            actionType: actionType,
+                            actionData: {
+                                item: "test_item",
+                                count: 1
+                            }
+                        })
+                    });
+                }
+                
+                const data = await response.json();
+                responseElem.textContent = `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                responseElem.textContent = `Error: ${error.message}`;
+            }
+        }
+        
+        async function testOutcome() {
+            const userId = document.getElementById('outcome-user-id').value;
+            const rewardType = document.getElementById('outcome-reward').value;
+            const before = document.getElementById('outcome-before').value;
+            const after = document.getElementById('outcome-after').value;
+            const method = document.getElementById('outcome-method').value;
+            const responseElem = document.getElementById('outcome-response');
+            
+            responseElem.textContent = "Sending request...";
+            
+            try {
+                let response;
+                if (method === 'GET') {
+                    const url = `${BASE_URL}/api/rewards/outcome?userId=${userId}&rewardType=${rewardType}&actionsBefore=${before}&actionsAfter=${after}`;
+                    response = await fetch(url);
+                } else {
+                    const url = `${BASE_URL}/api/rewards/outcome`;
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            rewardType: rewardType,
+                            stateBefore: 'low_engagement',
+                            stateAfter: 'medium_engagement',
+                            actionsBefore: parseInt(before),
+                            actionsAfter: parseInt(after)
+                        })
+                    });
+                }
+                
+                const data = await response.json();
+                responseElem.textContent = `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                responseElem.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
