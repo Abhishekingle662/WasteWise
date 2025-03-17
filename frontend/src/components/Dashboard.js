@@ -48,9 +48,9 @@ const Dashboard = () => {
       }
     ],
     badges: [
-      { id: 1, name: "Recycling Rookie", icon: "rookie-badge.svg", earned: true },
-      { id: 2, name: "Compost Champion", icon: "compost-badge.svg", earned: true },
-      { id: 3, name: "E-Waste Eliminator", icon: "ewaste-badge.svg", earned: true },
+      { id: 1, name: "Recycling Rookie", icon: "badge.svg", earned: true },
+      { id: 2, name: "Compost Champion", icon: "badge.svg", earned: true },
+      { id: 3, name: "E-Waste Eliminator", icon: "badge.svg", earned: true },
       { id: 4, name: "Zero Waste Hero", icon: "zero-badge.svg", earned: false }
     ]
   };
