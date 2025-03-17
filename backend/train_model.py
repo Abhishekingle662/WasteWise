@@ -27,7 +27,7 @@ def train_model(num_users=100, episodes=500, verbose=True):
         for state in simulator.rl_model.states:
             best_action = simulator.rl_model.q_table.loc[state].idxmax()
             best_value = simulator.rl_model.q_table.loc[state, best_action]
-            print(f"- {state}: {best_action (Q-value: {best_value:.2f})")
+            print(f"- {state}: {best_action} (Q-value: {best_value:.2f})")
     
     return simulator
 
