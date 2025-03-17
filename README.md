@@ -14,9 +14,15 @@ WasteWise is a web application that connects households and small businesses wit
 
 This application was built using:
 
-- React.js for the frontend interface
-- Google Maps API for location services
-- CSS for styling without external UI libraries
+- **Frontend**:
+  - React.js for the user interface
+  - Google Maps API for location services
+  - CSS for styling without external UI libraries
+
+- **Backend**:
+  - Python/Flask RESTful API
+  - Reinforcement Learning (Q-learning) for reward optimization
+  - Containerized deployment with Docker
 
 ## Getting Started
 
